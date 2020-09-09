@@ -58,7 +58,7 @@ for i in range(6):
 car_x = 230
 car_y = alto - 102
 speed_car_x = 0
-car = pygame.image.load("car.png").convert()
+car = pygame.image.load("Imagen/car.png").convert()
 car.set_colorkey(WHITE)
 
     #AMBULANCIA
@@ -66,7 +66,7 @@ car.set_colorkey(WHITE)
 class Ambulancia(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("ambulance.png").convert()
+        self.image = pygame.image.load("Imagen/ambulance.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
         
@@ -85,7 +85,7 @@ all_sprite_list.add(ambulancia)
 
 
 #Imagen de fondo
-background = pygame.image.load("fondo.png").convert()
+background = pygame.image.load("Imagen/fondo.png").convert()
 
 game_over = False
 
