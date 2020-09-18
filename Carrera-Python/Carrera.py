@@ -78,6 +78,49 @@ ambulancia.speed_amb_y = 7
 all_sprite_list = pygame.sprite.Group()
 all_sprite_list.add(ambulancia)
 # FIN VEHICULOS  ##
+class Police(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("Imagen/police.png").convert()
+
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+
+
+police = Police()
+police.rect.x = 400
+police.rect.y = 0
+police.speed_amb_y = 5
+all_sprite_list.add(police)
+class Taxi(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("Imagen/taxi.png").convert()
+
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+
+
+taxi = Taxi()
+taxi.rect.x = 540
+taxi.rect.y = 0
+taxi.speed_amb_y = 3
+all_sprite_list.add(taxi)
+
+class Minitruck(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("Imagen/mini_truck.png").convert()
+
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+
+
+minitruck = Minitruck()
+minitruck.rect.x = 150
+minitruck.rect.y = 0
+minitruck.speed_amb_y = 4
+all_sprite_list.add(minitruck)
 
 
 
@@ -101,9 +144,9 @@ while not game_over:
         #EVENTOS DEL TECLADO
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
-                speed_car_x = 3
+                speed_car_x = 5
             if event.key == pygame.K_LEFT:
-                speed_car_x = -3
+                speed_car_x = -5
                 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
@@ -121,8 +164,20 @@ while not game_over:
     if car_x > 605:
         car_x = 605
     ambulancia.rect.y += ambulancia.speed_amb_y
-    if ambulancia.rect.y > alto :
+    if ambulancia.rect.y > alto:
         ambulancia.rect.y = 0
+
+    police.rect.y += police.speed_amb_y
+    if police.rect.y > alto:
+        police.rect.y = 0
+    taxi.rect.y += taxi.speed_amb_y
+    if taxi.rect.y > alto:
+        taxi.rect.y = 0
+
+    minitruck.rect.y += minitruck.speed_amb_y
+    if minitruck.rect.y > alto:
+        minitruck.rect.y = 0
+
     ##### FIN ANIMACIONES ###############
             
      ########  INICIO ZONA DE DIBUJO  #########
