@@ -52,77 +52,79 @@ for i in range(6):
     y += 100
     
 # INICIO Vehiculos  #
-    
-    # JUGADOR
-    
-car_x = 230
-car_y = alto - 102
-speed_car_x = 0
-car = pygame.image.load("Imagen/car.png").convert()
-car.set_colorkey(WHITE)
+# CLASE JUGADOR
+class Car(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.car_x = 230
+        self.car_y = alto-102
+        self.speed_car_x = 0
+        self.image = pygame.image.load("Imagen/car.png").convert()
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
 
-    #AMBULANCIA
 
+car = Car()
+car.rect.y = 0
+all_sprite_list = pygame.sprite.Group()
+all_sprite_list.add(car)
+
+#CLASE AMBULANCIA
 class Ambulancia(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        self.speed_amb_y = 7
         self.image = pygame.image.load("Imagen/ambulance.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
-        
-ambulancia = Ambulancia()   
-ambulancia.rect.x = 280
-ambulancia.rect.y = 0 
-ambulancia.speed_amb_y = 7 
 
+ambulancia = Ambulancia()
+ambulancia.rect.x = 280
+ambulancia.rect.y = 0
 all_sprite_list = pygame.sprite.Group()
 all_sprite_list.add(ambulancia)
-# FIN VEHICULOS  ##
+
+#CLASE POLICIA
 class Police(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        self.speed_pol_y = 5
         self.image = pygame.image.load("Imagen/police.png").convert()
-
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
-
-
 police = Police()
 police.rect.x = 400
 police.rect.y = 0
-police.speed_amb_y = 5
 all_sprite_list.add(police)
+
+#CLASE TAXI
 class Taxi(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        self.speed_taxi_y = 3
         self.image = pygame.image.load("Imagen/taxi.png").convert()
-
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
-
 
 taxi = Taxi()
 taxi.rect.x = 540
 taxi.rect.y = 0
-taxi.speed_amb_y = 3
 all_sprite_list.add(taxi)
 
+#CLASE MINITRUCK
 class Minitruck(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        self.speed_mini_y = 4
         self.image = pygame.image.load("Imagen/mini_truck.png").convert()
-
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
-
-
 minitruck = Minitruck()
 minitruck.rect.x = 150
 minitruck.rect.y = 0
-minitruck.speed_amb_y = 4
 all_sprite_list.add(minitruck)
 
-
+#FIN CREACION DE ENEMIGOS Y JUGADOR
 
 
 
@@ -144,37 +146,37 @@ while not game_over:
         #EVENTOS DEL TECLADO
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
-                speed_car_x = 5
+                car.speed_car_x = 5
             if event.key == pygame.K_LEFT:
-                speed_car_x = -5
-                
+                car.speed_car_x = -5
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
-                speed_car_x = 0
+                car.speed_car_x = 0
             if event.key == pygame.K_LEFT:
-                speed_car_x = 0
+                car.speed_car_x = 0
+
        
    ########## FIN LOGICA del JUEGO #################
     ##### INICIO ANIMACIONES ###########
     
     rec_y += speed_rec_y
-    car_x += speed_car_x
-    if car_x < 162:
-        car_x = 162
-    if car_x > 605:
-        car_x = 605
+    car.car_x += car.speed_car_x
+    if car.car_x < 162:
+        car.car_x = 162
+    if car.car_x > 605:
+        car.car_x = 605
     ambulancia.rect.y += ambulancia.speed_amb_y
     if ambulancia.rect.y > alto:
         ambulancia.rect.y = 0
 
-    police.rect.y += police.speed_amb_y
+    police.rect.y += police.speed_pol_y
     if police.rect.y > alto:
         police.rect.y = 0
-    taxi.rect.y += taxi.speed_amb_y
+    taxi.rect.y += taxi.speed_taxi_y
     if taxi.rect.y > alto:
         taxi.rect.y = 0
 
-    minitruck.rect.y += minitruck.speed_amb_y
+    minitruck.rect.y += minitruck.speed_mini_y
     if minitruck.rect.y > alto:
         minitruck.rect.y = 0
 
@@ -183,7 +185,7 @@ while not game_over:
      ########  INICIO ZONA DE DIBUJO  #########
     #Rellenar el fondo
     screen.blit(background, [0,0])
-    
+
     for j in coor_list_1:
         pygame.draw.rect(screen, WHITE, (j[0], j[1], 10, 50))
         j[1] += speed_rec_y
@@ -202,7 +204,7 @@ while not game_over:
         if j[1] > alto:
             j[1] = 0
      
-    screen.blit(car, [car_x, car_y])
+    screen.blit(car.image, [car.car_x, car.car_y])
     all_sprite_list.draw(screen)
     ######## FIN ZONA DE DIBUJO ############
     
