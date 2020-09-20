@@ -28,7 +28,7 @@ rec_1_x = 290
 rec_2_x = 410
 rec_3_x = 530
 rec_y = 10
-speed_rec_y = 3
+speed_rec_y = 8
 
 coor_list_1 = []
 x = rec_1_x
@@ -48,7 +48,7 @@ for i in range(6):
 x = rec_3_x
 y = rec_y
 for i in range(6):
-    coor_list_1.append([x, y])
+    coor_list_3.append([x, y])
     y += 100
     
 # INICIO Vehiculos  #
@@ -57,7 +57,7 @@ class Car(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.car_x = 400
-        self.car_y = alto-120
+        self.car_y = alto-180
         self.speed_car_x = 0
         self.image = pygame.image.load("Imagen/car.png").convert()
         self.image.set_colorkey(WHITE)
@@ -75,7 +75,7 @@ all_sprite_list.add(car)
 class Ambulancia(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_amb_y = 7
+        self.speed_amb_y = 6
         self.image = pygame.image.load("Imagen/ambulance.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -92,7 +92,7 @@ all_sprite_list.add(ambulancia)
 class Police(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_pol_y = 5
+        self.speed_pol_y = 4
         self.image = pygame.image.load("Imagen/police.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -107,7 +107,7 @@ all_sprite_list.add(police)
 class Taxi(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_taxi_y = 4
+        self.speed_taxi_y = 7
         self.image = pygame.image.load("Imagen/taxi.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -123,7 +123,7 @@ all_sprite_list.add(taxi)
 class Minitruck(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_mini_y = 6
+        self.speed_mini_y = 7
         self.image = pygame.image.load("Imagen/mini_truck.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -173,18 +173,18 @@ while not game_over:
         car.car_x = 605
     ambulancia.rect.y += ambulancia.speed_amb_y
     if ambulancia.rect.y > alto:
-        ambulancia.rect.y = 0
+        ambulancia.rect.y = -150
 
     police.rect.y += police.speed_pol_y
     if police.rect.y > alto:
-        police.rect.y = 0
+        police.rect.y = -150
     taxi.rect.y += taxi.speed_taxi_y
     if taxi.rect.y > alto:
-        taxi.rect.y = 0
+        taxi.rect.y = -150
 
     minitruck.rect.y += minitruck.speed_mini_y
     if minitruck.rect.y > alto:
-        minitruck.rect.y = 0
+        minitruck.rect.y = -150
 
     ##### COLISIONES #####
     if car.car_x >= ambulancia.rect.x and \
@@ -222,19 +222,19 @@ while not game_over:
         pygame.draw.rect(screen, WHITE, (j[0], j[1], 10, 50))
         j[1] += speed_rec_y
         if j[1] > alto:
-            j[1] = 0
+            j[1] = -20
             
     for j in coor_list_2:
         pygame.draw.rect(screen, WHITE, (j[0], j[1], 10, 50))
         j[1] += speed_rec_y
         if j[1] > alto:
-            j[1] = 0
+            j[1] = -20
             
     for j in coor_list_3:
         pygame.draw.rect(screen, WHITE, (j[0], j[1], 10, 50))
         j[1] += speed_rec_y
         if j[1] > alto:
-            j[1] = 0
+            j[1] = -20
      
     screen.blit(car.image, [car.car_x, car.car_y])
     all_sprite_list.draw(screen)
