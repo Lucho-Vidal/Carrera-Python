@@ -25,7 +25,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21bc8ecd-5687-453f-ba9c-b2838579a109" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carrera-Python/Carrera.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carrera-Python/Carrera.py" afterDir="false" />
     </list>
@@ -43,6 +42,9 @@
         <option value="https://github.com/jlb984/Carrera-Python" />
       </set>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Carrera-Python/Carrera.py" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1hevEFq7T1QmP6foQyEXrkyWgQy" />
   <component name="ProjectViewState">
@@ -109,26 +111,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1600441012732" />
-    <state width="1367" height="179" key="GridCell.Tab.0.bottom" timestamp="1600562053442">
+    <state width="1367" height="82" key="GridCell.Tab.0.bottom" timestamp="1600575864851">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1339" height="179" key="GridCell.Tab.0.bottom/0.0.1360.728@0.0.1360.728" timestamp="1600388571240" />
-    <state width="1367" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1600562053442" />
-    <state width="1367" height="179" key="GridCell.Tab.0.center" timestamp="1600562053442">
+    <state width="1367" height="82" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1600575864851" />
+    <state width="1367" height="82" key="GridCell.Tab.0.center" timestamp="1600575864850">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1339" height="179" key="GridCell.Tab.0.center/0.0.1360.728@0.0.1360.728" timestamp="1600388571239" />
-    <state width="1367" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1600562053442" />
-    <state width="1367" height="179" key="GridCell.Tab.0.left" timestamp="1600562053442">
+    <state width="1367" height="82" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1600575864850" />
+    <state width="1367" height="82" key="GridCell.Tab.0.left" timestamp="1600575864850">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1339" height="179" key="GridCell.Tab.0.left/0.0.1360.728@0.0.1360.728" timestamp="1600388571239" />
-    <state width="1367" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1600562053442" />
-    <state width="1367" height="179" key="GridCell.Tab.0.right" timestamp="1600562053442">
+    <state width="1367" height="82" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1600575864850" />
+    <state width="1367" height="82" key="GridCell.Tab.0.right" timestamp="1600575864850">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1339" height="179" key="GridCell.Tab.0.right/0.0.1360.728@0.0.1360.728" timestamp="1600388571239" />
-    <state width="1367" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1600562053442" />
+    <state width="1367" height="82" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1600575864850" />
     <state x="181" y="9" key="SettingsEditor" timestamp="1600384307972">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
