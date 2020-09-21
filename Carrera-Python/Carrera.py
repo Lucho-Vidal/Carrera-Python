@@ -17,7 +17,7 @@ BLUE    = (0, 0, 255)
     # Pantalla
 
 alto = 595
-ancho = 1000
+ancho = 795
 size = (ancho, alto)
 
 #creamos ventana
@@ -45,6 +45,7 @@ clock = pygame.time.Clock()
 def mensaje_en_pantalla(msg, color, txt_x, txt_y):
     txt_pantalla = font.render(msg, True, color)
     screen.blit(txt_pantalla, [txt_x, txt_y])
+
     
 
 ############## FIN MENU INICIO ############################
@@ -71,7 +72,7 @@ class Car(pygame.sprite.Sprite):
 class Ambulancia(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_amb_y = 6
+        self.speed_amb_y = 5
         self.image = pygame.image.load("Imagen/ambulance.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -83,7 +84,7 @@ class Ambulancia(pygame.sprite.Sprite):
 class Police(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_pol_y = 4
+        self.speed_pol_y = 3
         self.image = pygame.image.load("Imagen/police.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -95,7 +96,7 @@ class Police(pygame.sprite.Sprite):
 class Taxi(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_taxi_y = 7
+        self.speed_taxi_y = 4
         self.image = pygame.image.load("Imagen/taxi.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -107,7 +108,7 @@ class Taxi(pygame.sprite.Sprite):
 class Minitruck(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_mini_y = 7
+        self.speed_mini_y = 6
         self.image = pygame.image.load("Imagen/mini_truck.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -130,7 +131,7 @@ def bucle_principal():
     
     game_over = False
     
-    valor_tick = 20
+    valor_tick = 60
     
         #Lineas de separacion de carriles
     rec_1_x = 290
@@ -200,7 +201,8 @@ def bucle_principal():
             
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                pygame.display.quit()
+                break
        
                 
         ###### INICIO LOGICA del JUEGO #################
@@ -243,28 +245,24 @@ def bucle_principal():
             minitruck.rect.y = -150
     
         ##### COLISIONES #####
-        if car.car_x >= ambulancia.rect.x and \
-                car.car_x < ambulancia.rect.x + ambulancia.ancho +30 and \
+        if ambulancia.rect.x <= car.car_x < ambulancia.rect.x + ambulancia.ancho +30 and \
                     car.car_y +car.alto >= ambulancia.rect.y and \
                         car.car_y <= ambulancia.rect.y + ambulancia.alto:
                                 game_over = True
-    
-        if car.car_x >= taxi.rect.x and \
-                car.car_x < taxi.rect.x + taxi.ancho + 30 and \
+
+        if taxi.rect.x <= car.car_x < taxi.rect.x + taxi.ancho + 30 and \
                     car.car_y + car.alto >= taxi.rect.y and \
                         car.car_y <= taxi.rect.y + taxi.alto:
                                 game_over = True
     
-        if car.car_x >= police.rect.x and \
-                car.car_x < police.rect.x + police.ancho + 30 and \
+        if police.rect.x <= car.car_x < police.rect.x + police.ancho + 30 and \
                     car.car_y + car.alto >= police.rect.y and \
                         car.car_y <= police.rect.y + police.alto:
                                 game_over = True
                                 
                                 
     
-        if car.car_x >= minitruck.rect.x and \
-                car.car_x < minitruck.rect.x + minitruck.ancho +40 and \
+        if minitruck.rect.x <= car.car_x < minitruck.rect.x + minitruck.ancho +40 and \
                     car.car_y + car.alto >= minitruck.rect.y and \
                         car.car_y <= minitruck.rect.y + minitruck.alto:
                                 game_over = True
@@ -274,7 +272,7 @@ def bucle_principal():
                 
          ########  INICIO ZONA DE DIBUJO  #########
         #Rellenar el fondo
-        screen.blit(background,[0,0])
+        screen.blit(background, [0, 0])
     
         for j in coor_list_1:
             pygame.draw.rect(screen, WHITE, (j[0], j[1], 10, 50))
@@ -302,7 +300,10 @@ def bucle_principal():
         pygame.display.flip()
         # Control de velocidad del juego
         clock.tick(valor_tick)
-    mensaje_en_pantalla("SI VOLVES A PERDER, MERLINO TE DESAPRUEBA", RED, 50, 200)
+    screen.fill(BLACK)
+    mensaje_en_pantalla("SI VOLVES A PERDER", WHITE, 200, 220)
+    mensaje_en_pantalla("MERLINO TE DESAPRUEBA", WHITE, 155, 270)
+
     pygame.display.update()    
         
         
@@ -315,21 +316,23 @@ def bucle_principal():
     #    pygame.display.update()
     #    time.sleep(0.3)
     time.sleep(2)
-    pygame.quit()
+
 ## FIN DE BUCLE DEL JUEGO ##### 
 
     
 while not fin_bucle == True:
-            screen.fill(WHITE)
-            mensaje_en_pantalla("Para entrar presione E", RED, 250,200)
-            mensaje_en_pantalla("Para salir presione S", RED, 259,250)
+            screen.fill(BLACK)
+            mensaje_en_pantalla("Para jugar presione E", WHITE, 220, 220)
+            mensaje_en_pantalla("Para salir presione S", WHITE, 220, 270)
             pygame.display.update()
-            
+
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s:
-                        pygame.quit()
+                        pygame.display.quit()
+                        break
                     if event.key == pygame.K_e:
                         bucle_principal()
-    
+
 bucle_principal()
+
