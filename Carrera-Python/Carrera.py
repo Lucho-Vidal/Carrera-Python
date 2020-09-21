@@ -1,5 +1,7 @@
 import pygame
+import time
 pygame.init()
+pygame.display.set_caption('Carrera de Obstaculos')
 
 
 
@@ -9,18 +11,33 @@ WHITE   = (255, 255, 255)
 GREEN   = (0, 255, 0)
 RED     = (255, 0, 0)
 BLUE    = (0, 0, 255)
+
+
 #variables 
     # Pantalla
 
 alto = 595
-ancho = 795
+ancho = 1000
 size = (ancho, alto)
 
 #creamos ventana
 screen = pygame.display.set_mode(size)
 #Definimos reloj
 clock = pygame.time.Clock()
-valor_tick = 60
+valor_tick = 20
+
+
+
+############### MENU INICIO ###############################
+#Fuentes
+font = pygame.font.SysFont(None, 50)
+
+def mensaje_en_pantalla(msg, color, txt_x, txt_y):
+    txt_pantalla = font.render(msg, True, color)
+    screen.blit(txt_pantalla, [txt_x, txt_y])
+    
+
+############## FIN MENU INICIO ############################
 
 
     #Lineas de separacion de carriles
@@ -147,7 +164,7 @@ while not game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-            break
+   
             
     ###### INICIO LOGICA del JUEGO #################
         #EVENTOS DEL TECLADO
@@ -156,6 +173,8 @@ while not game_over:
                 car.speed_car_x = 7
             if event.key == pygame.K_LEFT:
                 car.speed_car_x = -7
+            if event.key == pygame.K_UP:
+                valor_tick += 5
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 car.speed_car_x = 0
@@ -204,6 +223,8 @@ while not game_over:
                 car.car_y + car.alto >= police.rect.y and \
                     car.car_y <= police.rect.y + police.alto:
                             game_over = True
+                            
+                            
 
     if car.car_x >= minitruck.rect.x and \
             car.car_x < minitruck.rect.x + minitruck.ancho +40 and \
@@ -244,3 +265,17 @@ while not game_over:
     pygame.display.flip()
     # Control de velocidad del juego
     clock.tick(valor_tick)
+mensaje_en_pantalla("SI VOLVES A PERDER, MERLINO TE DESAPRUEBA", RED, 50, 200)
+pygame.display.update()    
+    
+    
+#Mensaje parpadeante(cuelga la ventana)
+#for i in range(10):
+#    mensaje_en_pantalla("SI VOLVES A PERDER, MERLINO TE DESAPRUEBA", RED, 50, 200)
+#   pygame.display.update()
+#   time.sleep(0.3)
+#    mensaje_en_pantalla("SI VOLVES A PERDER, MERLINO TE DESAPRUEBA", WHITE, 50, 200)
+#    pygame.display.update()
+#    time.sleep(0.3)
+time.sleep(2)
+pygame.quit()

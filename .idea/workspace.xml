@@ -15,18 +15,12 @@
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21bc8ecd-5687-453f-ba9c-b2838579a109" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Carrera-Python/Carrera.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carrera-Python/Carrera.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +47,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.project" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
@@ -107,10 +101,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="0" width="816" height="728" key="#Intentions/0.0.1366.728@0.0.1366.728" timestamp="1600441093422" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1600441012732">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="651" y="172" key="FileChooserDialogImpl" timestamp="1600694318245">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1600441012732" />
+    <state x="651" y="172" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1600694318245" />
     <state width="1367" height="82" key="GridCell.Tab.0.bottom" timestamp="1600575864851">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
