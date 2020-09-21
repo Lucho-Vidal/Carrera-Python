@@ -3,8 +3,7 @@ import time
 pygame.init()
 pygame.display.set_caption('Carrera de Obstaculos')
 
-########### $$$$CONSTANTES$$$$    #########
-
+########### $$$$CONSTANTES$$$$ ###########
 #Colores
 BLACK   = (0, 0, 0)
 WHITE   = (255, 255, 255)
@@ -12,15 +11,13 @@ GREEN   = (0, 255, 0)
 RED     = (255, 0, 0)
 BLUE    = (0, 0, 255)
 
-
-#variables 
-    # Pantalla
-
+#Variables
+ # Pantalla
 alto = 595
 ancho = 795
 size = (ancho, alto)
 
-#creamos ventana
+#Crear ventana
 screen = pygame.display.set_mode(size)
 
 #Imagen de fondo
@@ -29,30 +26,56 @@ background = pygame.image.load("Imagen/fondo.png").convert()
 #Fuentes
 font = pygame.font.SysFont(None, 50)
 
-
-
-
-
 #Definimos reloj
 clock = pygame.time.Clock()
 
-
-
-
 ############### MENU INICIO ###############################
-
-
 def mensaje_en_pantalla(msg, color, txt_x, txt_y):
     txt_pantalla = font.render(msg, True, color)
     screen.blit(txt_pantalla, [txt_x, txt_y])
 
-    
+def menu():
+    screen.fill(BLACK)
+    mensaje_en_pantalla("CARRERA DE OBSTACULOS", RED, 150, 110)
+    mensaje_en_pantalla("1. Jugar", WHITE, 180, 220)
+    mensaje_en_pantalla("2. Instrucciones", WHITE, 180, 270)
+    mensaje_en_pantalla("3. Puntaje más alto", WHITE, 180, 320)
+    mensaje_en_pantalla("4. Salir", WHITE, 180, 370)
+    pygame.display.update()
 
+def instrucciones():
+    screen.fill(BLACK)
+    mensaje_en_pantalla("Use las flachas izquierda y ", WHITE, 20, 220)
+    mensaje_en_pantalla("derecha para moverse", WHITE, 20, 270)
+    pygame.display.update()
+    time.sleep(3)
+
+def puntajeAlto():
+    screen.fill(BLACK)
+    mensaje_en_pantalla("1. " + max_score(), WHITE, 155, 270)
+    pygame.display.update()
+    time.sleep(3)
 ############## FIN MENU INICIO ############################
 
+############## ARCHIVO DE PUNTAJE MÁS ALTO ########################
+def update_score(nscore):
+    score = max_score()
 
+    with open('scores.txt', 'w') as f:
+        if int(score) > nscore:
+            f.write(str(score))
+        else:
+            f.write(str(nscore))
+def max_score():
+    with open('scores.txt', 'r') as f:
+        lines = f.readlines()
+        score = lines[0].strip()
+
+    return score
+######## FIN ARCHIVO DE PUNTAJE MÁS ALTO ##########
 
 ######## INICIO  Clases Vehiculos  ########
+
 # CLASE JUGADOR
 class Car(pygame.sprite.Sprite):
     def __init__(self):
@@ -66,8 +89,6 @@ class Car(pygame.sprite.Sprite):
         self.ancho = 44
         self.alto = 98
 
-
-
 #CLASE AMBULANCIA
 class Ambulancia(pygame.sprite.Sprite):
     def __init__(self):
@@ -78,7 +99,6 @@ class Ambulancia(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.ancho = 58
         self.alto = 120
-
 
 #CLASE POLICIA
 class Police(pygame.sprite.Sprite):
@@ -91,7 +111,6 @@ class Police(pygame.sprite.Sprite):
         self.ancho = 58
         self.alto = 124
 
-
 #CLASE TAXI
 class Taxi(pygame.sprite.Sprite):
     def __init__(self):
@@ -102,7 +121,6 @@ class Taxi(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.ancho = 58
         self.alto = 124
-
 
 #CLASE MINITRUCK
 class Minitruck(pygame.sprite.Sprite):
@@ -115,31 +133,23 @@ class Minitruck(pygame.sprite.Sprite):
         self.ancho = 58
         self.alto = 124
 
-
-
 ######## FIN  Clases Vehiculos  ########
+
 fin_bucle = False
-
-
-
-
-
-
+score = 0
 
 #Bucle del juego
 def bucle_principal():
-    
+    global score, objetivo
     game_over = False
-    
     valor_tick = 60
-    
-        #Lineas de separacion de carriles
+
+    #Lineas de separacion de carriles
     rec_1_x = 290
     rec_2_x = 410
     rec_3_x = 530
     rec_y = 10
     speed_rec_y = 8
-    
     coor_list_1 = []
     x = rec_1_x
     y = rec_y
@@ -161,9 +171,7 @@ def bucle_principal():
         coor_list_3.append([x, y])
         y += 100
         
-        
-     #### CREACION DE VEHICULOS   ###########     
-            
+ ###########  CREACION DE VEHICULOS   ###########
     car = Car()
     car.rect.y = 0
     all_sprite_list = pygame.sprite.Group()
@@ -189,24 +197,18 @@ def bucle_principal():
     minitruck.rect.x = 150
     minitruck.rect.y = 0
     all_sprite_list.add(minitruck)
-    
-     #### FIN CREACION DE VEHICULOS   ###########     
-            
-        
+
+ ###########  FIN CREACION DE VEHICULOS  ###########
+
     while not game_over:
-        
-            
-            
-            
-            
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.display.quit()
                 break
-       
-                
+
         ###### INICIO LOGICA del JUEGO #################
             #EVENTOS DEL TECLADO
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     car.speed_car_x = 7
@@ -214,28 +216,32 @@ def bucle_principal():
                     car.speed_car_x = -7
                 if event.key == pygame.K_UP:
                     valor_tick += 5
+
+
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
                     car.speed_car_x = 0
                 if event.key == pygame.K_LEFT:
                     car.speed_car_x = 0
-    
+
        ########## FIN LOGICA del JUEGO #################
+
         ##### INICIO ANIMACIONES ###########
-        
         rec_y += speed_rec_y
         car.car_x += car.speed_car_x
         if car.car_x < 162:
             car.car_x = 162
         if car.car_x > 605:
             car.car_x = 605
+
         ambulancia.rect.y += ambulancia.speed_amb_y
         if ambulancia.rect.y > alto:
             ambulancia.rect.y = -150
-    
+
         police.rect.y += police.speed_pol_y
         if police.rect.y > alto:
             police.rect.y = -150
+
         taxi.rect.y += taxi.speed_taxi_y
         if taxi.rect.y > alto:
             taxi.rect.y = -150
@@ -243,30 +249,33 @@ def bucle_principal():
         minitruck.rect.y += minitruck.speed_mini_y
         if minitruck.rect.y > alto:
             minitruck.rect.y = -150
-    
+
         ##### COLISIONES #####
         if ambulancia.rect.x <= car.car_x < ambulancia.rect.x + ambulancia.ancho +30 and \
                     car.car_y +car.alto >= ambulancia.rect.y and \
                         car.car_y <= ambulancia.rect.y + ambulancia.alto:
                                 game_over = True
+                                update_score(score)
+                                score = 0
 
         if taxi.rect.x <= car.car_x < taxi.rect.x + taxi.ancho + 30 and \
                     car.car_y + car.alto >= taxi.rect.y and \
                         car.car_y <= taxi.rect.y + taxi.alto:
                                 game_over = True
-    
+                                update_score(score)
+                                score = 0
         if police.rect.x <= car.car_x < police.rect.x + police.ancho + 30 and \
                     car.car_y + car.alto >= police.rect.y and \
                         car.car_y <= police.rect.y + police.alto:
                                 game_over = True
-                                
-                                
-    
+                                update_score(score)
+                                score = 0
         if minitruck.rect.x <= car.car_x < minitruck.rect.x + minitruck.ancho +40 and \
                     car.car_y + car.alto >= minitruck.rect.y and \
                         car.car_y <= minitruck.rect.y + minitruck.alto:
                                 game_over = True
-    
+                                update_score(score)
+                                score = 0
         ##### FIN COLISIONES ###############
         ##### FIN ANIMACIONES ###############
                 
@@ -291,48 +300,45 @@ def bucle_principal():
             j[1] += speed_rec_y
             if j[1] > alto:
                 j[1] = -20
-         
+
         screen.blit(car.image, [car.car_x, car.car_y])
         all_sprite_list.draw(screen)
+        mensaje_en_pantalla(str(score), WHITE, 0, 0)
+
+        score += 1
         ######## FIN ZONA DE DIBUJO ############
         
         # Actualizar pantalla
         pygame.display.flip()
         # Control de velocidad del juego
         clock.tick(valor_tick)
+
     screen.fill(BLACK)
     mensaje_en_pantalla("SI VOLVES A PERDER", WHITE, 200, 220)
     mensaje_en_pantalla("MERLINO TE DESAPRUEBA", WHITE, 155, 270)
 
-    pygame.display.update()    
-        
-        
-    #Mensaje parpadeante(cuelga la ventana)
-    #for i in range(10):
-    #    mensaje_en_pantalla("SI VOLVES A PERDER, MERLINO TE DESAPRUEBA", RED, 50, 200)
-    #   pygame.display.update()
-    #   time.sleep(0.3)
-    #    mensaje_en_pantalla("SI VOLVES A PERDER, MERLINO TE DESAPRUEBA", WHITE, 50, 200)
-    #    pygame.display.update()
-    #    time.sleep(0.3)
+
+    pygame.display.update()
     time.sleep(2)
 
 ## FIN DE BUCLE DEL JUEGO ##### 
 
     
 while not fin_bucle == True:
-            screen.fill(BLACK)
-            mensaje_en_pantalla("Para jugar presione E", WHITE, 220, 220)
-            mensaje_en_pantalla("Para salir presione S", WHITE, 220, 270)
-            pygame.display.update()
 
+            menu()
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_s:
+                    if event.key == pygame.K_1:
+                        bucle_principal()
+                    if event.key == pygame.K_2:
+                        instrucciones()
+                    if event.key == pygame.K_3:
+                        puntajeAlto()
+                    if event.key == pygame.K_4:
                         pygame.display.quit()
                         break
-                    if event.key == pygame.K_e:
-                        bucle_principal()
+
 
 bucle_principal()
 
