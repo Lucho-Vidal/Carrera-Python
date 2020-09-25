@@ -47,6 +47,7 @@ def instrucciones():
     screen.fill(BLACK)
     mensaje_en_pantalla("Use las flachas izquierda y ", WHITE, 20, 220)
     mensaje_en_pantalla("derecha para moverse", WHITE, 20, 270)
+    mensaje_en_pantalla("Presione ESC para pausar", WHITE, 20, 320)
     pygame.display.update()
     time.sleep(3)
 
@@ -57,6 +58,30 @@ def puntajeAlto():
     time.sleep(3)
 ############## FIN MENU INICIO ############################
 
+################ Funcion Pausa ####
+def pausa():
+    pausado = True
+    while pausado:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pausado = False
+                elif event.key == pygame.K_q:
+                    pygame.quit()
+                    quit()
+        screen.fill(BLUE)
+        pygame.draw.rect(screen,GREEN, (110,160,550,200))
+        mensaje_en_pantalla("PAUSA", BLACK, 300, 200)
+        mensaje_en_pantalla("Presiona ESC para continuar", BLACK, 150, 280)
+        mensaje_en_pantalla("Presiona Q para salir", BLACK, 180, 310)
+        pygame.display.update()
+        clock.tick(5)
+############ FIN Funcion Pausa #############
+        
+        
 ############## ARCHIVO DE PUNTAJE MÁS ALTO ########################
 def update_score(nscore):
     score = max_score()
@@ -126,7 +151,7 @@ class Taxi(pygame.sprite.Sprite):
 class Minitruck(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.speed_mini_y = 6
+        self.speed_mini_y = 10
         self.image = pygame.image.load("Imagen/mini_truck.png").convert()
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -135,6 +160,8 @@ class Minitruck(pygame.sprite.Sprite):
 
 ######## FIN  Clases Vehiculos  ########
 
+
+    
 fin_bucle = False
 score = 0
 
@@ -142,6 +169,7 @@ score = 0
 def bucle_principal():
     global score, objetivo
     game_over = False
+    
     valor_tick = 60
 
     #Lineas de separacion de carriles
@@ -184,7 +212,7 @@ def bucle_principal():
     all_sprite_list.add(ambulancia)       
             
     police = Police()
-    police.rect.x = 400
+    police.rect.x = 150
     police.rect.y = 0
     all_sprite_list.add(police)
     
@@ -194,8 +222,8 @@ def bucle_principal():
     all_sprite_list.add(taxi)
     
     minitruck = Minitruck()
-    minitruck.rect.x = 150
-    minitruck.rect.y = 0
+    minitruck.rect.x = 400
+    minitruck.rect.y = -1000
     all_sprite_list.add(minitruck)
 
  ###########  FIN CREACION DE VEHICULOS  ###########
@@ -216,7 +244,11 @@ def bucle_principal():
                     car.speed_car_x = -7
                 if event.key == pygame.K_UP:
                     valor_tick += 5
-
+                if event.key == pygame.K_ESCAPE:
+                    pausa()
+                
+                
+                
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
@@ -248,7 +280,7 @@ def bucle_principal():
     
         minitruck.rect.y += minitruck.speed_mini_y
         if minitruck.rect.y > alto:
-            minitruck.rect.y = -150
+            minitruck.rect.y = -1500
 
         ##### COLISIONES #####
         if ambulancia.rect.x <= car.car_x < ambulancia.rect.x + ambulancia.ancho +30 and \
@@ -340,5 +372,5 @@ while not fin_bucle == True:
                         break
 
 
-bucle_principal()
+
 
