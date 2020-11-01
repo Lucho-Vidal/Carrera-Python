@@ -72,11 +72,11 @@ def pausa():
                 elif event.key == pygame.K_q:
                     pygame.quit()
                     quit()
-        screen.fill(BLUE)
-        pygame.draw.rect(screen,GREEN, (110,160,550,200))
-        mensaje_en_pantalla("PAUSA", BLACK, 300, 200)
-        mensaje_en_pantalla("Presiona ESC para continuar", BLACK, 150, 280)
-        mensaje_en_pantalla("Presiona Q para salir", BLACK, 180, 310)
+        screen.fill(BLACK)
+        pygame.draw.rect(screen,BLACK, (110,160,550,200))
+        mensaje_en_pantalla("PAUSA", RED, 300, 200)
+        mensaje_en_pantalla("Presiona ESC para continuar", WHITE, 150, 270)
+        mensaje_en_pantalla("Presiona Q para salir", WHITE, 150, 320)
         pygame.display.update()
         clock.tick(5)
 ############ FIN Funcion Pausa #############
@@ -338,6 +338,12 @@ def bucle_principal():
         mensaje_en_pantalla(str(score), WHITE, 0, 0)
 
         score += 1
+        if score%500 == 0:
+            valor_tick += 10
+        if score%5000 == 0:
+            valor_tick += 20
+
+
         ######## FIN ZONA DE DIBUJO ############
         
         # Actualizar pantalla
