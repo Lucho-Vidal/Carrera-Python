@@ -16,6 +16,7 @@ class Vehiculo(pygame.sprite.Sprite):
     
     def modificar_Velocidad(self,velocidad):
         self.speed_y = velocidad
+
     # modifico la velocida por carril para que no se sobrepongan
     def cambiar_carril(self, carril):
         self.rect.x = carril
@@ -28,15 +29,15 @@ class Vehiculo(pygame.sprite.Sprite):
         if carril == CARRIL_CUATRO:
             self.modificar_Velocidad(4)
     # voy a tratar de que no se sobrepongan los vehiculos
-    def colisiones_vehiculos(self,vehiculo, car = False):
+    def colisiones_vehiculos(self,vehiculo):
         colision = False
         if isinstance(self,Jugador):
             if vehiculo.rect.x <= self.car_x < vehiculo.rect.x + vehiculo.ancho +30 and \
                     self.car_y +self.alto >= vehiculo.rect.y and \
                         self.car_y <= vehiculo.rect.y + vehiculo.alto:
                         colision = True
-        elif isinstance(self,Curacion):
-            car.vida += 10
+                        sonido_explosion.play()
+                        
         else:
             if self.rect.x <= vehiculo.rect.x < self.rect.x + self.ancho + 30 and \
                         vehiculo.rect.y + vehiculo.alto >= self.rect.y and \

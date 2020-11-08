@@ -1,5 +1,6 @@
 import pygame ,  random
 pygame.init() 
+pygame.mixer.init()
 import time
 
 pygame.display.set_caption('Carrera de Obstaculos')
@@ -30,6 +31,12 @@ screen = pygame.display.set_mode(size)
 #Imagen de fondo
 background = pygame.image.load("Imagen/fondo.png").convert()
 
+#Sonidos
+sonido_explosion = pygame.mixer.Sound("Sonido/explosion.wav")
+sonido_salud = pygame.mixer.Sound("Sonido/laser5.ogg")
+pygame.mixer.music.load("Sonido/music.ogg")
+pygame.mixer.music.set_volume(0.2)
+
 #Fuentes
 font = pygame.font.SysFont(None, 50)
 
@@ -44,10 +51,12 @@ def mensaje_en_pantalla(msg, color, txt_x, txt_y):
 def menu():
     screen.fill(BLACK)
     mensaje_en_pantalla("CARRERA DE OBSTACULOS", RED, 150, 110)
-    mensaje_en_pantalla("1. Jugar", WHITE, 180, 220)
-    mensaje_en_pantalla("2. Instrucciones", WHITE, 180, 270)
-    mensaje_en_pantalla("3. Puntaje más alto", WHITE, 180, 320)
-    mensaje_en_pantalla("4. Salir", WHITE, 180, 370)
+    mensaje_en_pantalla("1. Jugar", WHITE, 180, 150)
+    mensaje_en_pantalla("2. Jugar de a Dos", WHITE, 180, 200)
+    mensaje_en_pantalla("3. Instrucciones", WHITE, 180, 250)
+    mensaje_en_pantalla("4. Puntaje más alto", WHITE, 180, 300)
+    mensaje_en_pantalla("5. Salir", WHITE, 180, 420)
+    mensaje_en_pantalla("6. Salir", WHITE, 180, 470)
     pygame.display.update()
 
 def instrucciones():
@@ -55,8 +64,10 @@ def instrucciones():
     mensaje_en_pantalla("Use las flachas izquierda y ", WHITE, 20, 220)
     mensaje_en_pantalla("derecha para moverse", WHITE, 20, 270)
     mensaje_en_pantalla("Presione ESC para pausar", WHITE, 20, 320)
+    mensaje_en_pantalla("Si chocas pierdes vida,", WHITE, 20, 370)
+    mensaje_en_pantalla("pero cada 1000 puntos de score se carga!", WHITE, 20, 420)
     pygame.display.update()
-    time.sleep(3)
+    time.sleep(5)
 
 def puntajeAlto():
     screen.fill(BLACK)
@@ -137,6 +148,7 @@ def reaparecer(ambulancia, police , taxi, minitruck):
                     ambulancia.rect.y += -200
            
     police.rect.y += police.speed_y
+    police.rect.x += police.speed_x
     if police.rect.y > alto:
         police.rect.y = -180
         police.cambiar_carril(CARRIL[random.randrange(0, 3)])
@@ -155,6 +167,7 @@ def reaparecer(ambulancia, police , taxi, minitruck):
                     taxi.rect.y += -200
 
     minitruck.rect.y += minitruck.speed_y
+    minitruck.rect.x += minitruck.speed_x
     if minitruck.rect.y > alto:
         minitruck.rect.y = -180
         minitruck.cambiar_carril(CARRIL[random.randrange(2, 4)])
@@ -163,12 +176,14 @@ def reaparecer(ambulancia, police , taxi, minitruck):
                 minitruck.colisiones_vehiculos(ambulancia):
                     minitruck.rect.y += -200
 
-def verificar_colisiones(car,ambulancia , taxi, police, minitruck, score):
+def verificar_colisiones(car,ambulancia , taxi, police, minitruck, score,valor_tick):
     game_over = False
     if car.colisiones_vehiculos(ambulancia):
-        car.vida -= 20
+        car.vida -= 10
         time.sleep(1)
         car.car_x = 380
+        if valor_tick>100:
+            valor_tick=60
         if car.vida <= 0:
                 game_over = True
                 update_score(score)
@@ -177,27 +192,33 @@ def verificar_colisiones(car,ambulancia , taxi, police, minitruck, score):
         car.vida -= 20
         time.sleep(1)
         car.car_x = 380
+        if valor_tick>100:
+            valor_tick=60
         if car.vida <= 0:
                 game_over = True
                 update_score(score)
                 score = 0
     if car.colisiones_vehiculos(police):
-        car.vida -= 20
+        car.vida -= 40
         time.sleep(1)
         car.car_x = 380
+        if valor_tick>100:
+            valor_tick=60
         if car.vida <= 0:
                 game_over = True
                 update_score(score)
                 score = 0
     if car.colisiones_vehiculos(minitruck):
-        car.vida -= 20
+        car.vida -= 45
         time.sleep(1)
         car.car_x = 380
+        if valor_tick>100:
+            valor_tick=60
         if car.vida <= 0:
                 game_over = True
                 update_score(score)
                 score = 0
-    return game_over
+    return valor_tick,game_over
 
 def captura_evento(car, valor_tick):
     for event in pygame.event.get():

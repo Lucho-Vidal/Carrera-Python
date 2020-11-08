@@ -38,6 +38,7 @@ def bucle_principal():
     all_sprite.add(minitruck)
     all_sprite_enemy.add(minitruck)
  ###########  FIN CREACION DE VEHICULOS  ###########
+    pygame.mixer.music.play(loops=-1)
     while not game_over:
         ###### INICIO LOGICA del JUEGO #################
         valor_tick = captura_evento(car, valor_tick)
@@ -54,7 +55,8 @@ def bucle_principal():
         # si pasaron la pantalla vuelven a aparecer arriba
         reaparecer(ambulancia, police , taxi, minitruck)
         ##### COLISIONES #####
-        game_over = verificar_colisiones(car,ambulancia , taxi, police, minitruck, score)
+        resultado = verificar_colisiones(car,ambulancia , taxi, police, minitruck, score,valor_tick)
+        valor_tick,game_over = resultado
         ##### FIN COLISIONES ###############
         ##### FIN ANIMACIONES ###############
                 
@@ -89,6 +91,9 @@ def bucle_principal():
             valor_tick += 10
         if score%5000 == 0 and valor_tick < 140:
             valor_tick += 20
+        if score%1000 == 0 and car.vida < 100:
+            car.vida += 10
+            sonido_salud.play()
         
         dibujar_barra_vida(screen , 5 , 5 , car.vida)
         ######## FIN ZONA DE DIBUJO ############
@@ -105,6 +110,7 @@ def bucle_principal():
     pygame.display.update()
     time.sleep(2)
 ## FIN DE BUCLE DEL JUEGO ##### 
+
 fin_bucle = False   
 while not fin_bucle == True:
 
