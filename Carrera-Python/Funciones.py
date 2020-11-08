@@ -51,12 +51,11 @@ def mensaje_en_pantalla(msg, color, txt_x, txt_y):
 def menu():
     screen.fill(BLACK)
     mensaje_en_pantalla("CARRERA DE OBSTACULOS", RED, 150, 110)
-    mensaje_en_pantalla("1. Jugar", WHITE, 180, 150)
-    mensaje_en_pantalla("2. Jugar de a Dos", WHITE, 180, 200)
-    mensaje_en_pantalla("3. Instrucciones", WHITE, 180, 250)
-    mensaje_en_pantalla("4. Puntaje más alto", WHITE, 180, 300)
-    mensaje_en_pantalla("5. Salir", WHITE, 180, 420)
-    mensaje_en_pantalla("6. Salir", WHITE, 180, 470)
+    mensaje_en_pantalla("1. Jugar Carrera", WHITE, 180, 200)
+    mensaje_en_pantalla("2. Instrucciones", WHITE, 180, 250)
+    mensaje_en_pantalla("3. Puntaje más alto", WHITE, 180, 300)
+    mensaje_en_pantalla("4. Jugar Ping-Pong ", WHITE, 180, 350)
+    mensaje_en_pantalla("5. Salir", WHITE, 180, 400)
     pygame.display.update()
 
 def instrucciones():
