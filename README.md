@@ -6,7 +6,7 @@ Aplicacion web para asistir a la planificacion de la carrera, proyecto para Semi
 
 Antes de trabajar:
 
-git pull https://github.com/Atixx/PlanCarrera
+git pull https://github.com/Lucho-Vidal/Carrera-Python 
 git branch (para ver si estas en la rama correcta)
 git checkout <nombre de rama para trabajar>
 trabajar....
@@ -23,3 +23,5 @@ python manage.py sqlclear <your_app> | python manage.py dbshell
 python manage.py syncdb
 python manage.py loaddata temp_data.json
 LPPG! :) (get or 404)
+
+copiado de https://github.com/Atixx/PlanCarrera
